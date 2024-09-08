@@ -1,4 +1,4 @@
-package com.proj.certification;
+package com.proj.certification.modules;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,6 @@ public class CertificationApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CertificationApplication.class, args);
-		System.out.println("Let's start");
 	}
 
 }
