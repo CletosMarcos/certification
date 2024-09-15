@@ -1,6 +1,7 @@
 package com.proj.certification.modules.students.controllers;
 
 import com.proj.certification.modules.students.dto.VerifyHasCertificationDTO;
+import com.proj.certification.modules.students.repositories.CertificationStudentRepository;
 import com.proj.certification.modules.students.useCases.VerifyIfHasCertificationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ public class StudentController {
     // Using the UseCase
     @Autowired
     private VerifyIfHasCertificationUseCase verifyIfHasCertificationUseCase;
+
 
     // Verify is User has a Certification
     @PostMapping("verifyIfHasCertification")
