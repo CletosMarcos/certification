@@ -1,5 +1,8 @@
 package com.proj.certification.modules.questions.controllers;
 
+import com.proj.certification.modules.questions.dto.AlternativesResultDTO;
+import com.proj.certification.modules.questions.dto.QuestionResultDTO;
+import com.proj.certification.modules.questions.entities.AlternativesEntity;
 import com.proj.certification.modules.questions.entities.QuestionEntity;
 import com.proj.certification.modules.questions.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/questions")
@@ -18,7 +22,34 @@ public class QuestionController {
     private QuestionRepository questionRepository;
 
     @GetMapping("/technology/{technology}")
-    public List<QuestionEntity> findByTechnology(@PathVariable String technology) {
-        return this.questionRepository.findByTechnology(technology);
+    public List<QuestionResultDTO> findByTechnology(@PathVariable String technology) {
+        var result = this.questionRepository.findByTechnology(technology);
+
+        var toMap = result.stream().map(question -> mapQuestionDTO(question))
+                .collect(Collectors.toList());
+
+        return toMap;
+    }
+
+    static QuestionResultDTO mapQuestionDTO(QuestionEntity question) {
+        var questionResultDTO = QuestionResultDTO.builder()
+                .id(question.getId())
+                .technology(question.getTechnology())
+                .description(question.getDescription()).build();
+
+        List<AlternativesResultDTO> alternativesResultDTOs =
+                question.getAlternatives()
+                .stream().map(alternative -> mapAlternativeDTO(alternative))
+                        .collect(Collectors.toList());
+
+        questionResultDTO.setAlternatives(alternativesResultDTOs);
+        return questionResultDTO;
+    }
+
+    static AlternativesResultDTO mapAlternativeDTO(AlternativesEntity alternatives) {
+
+        return AlternativesResultDTO.builder()
+                .id(alternatives.getId())
+                .description(alternatives.getDescription()).build();
     }
 }
