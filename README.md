@@ -3,6 +3,8 @@
 ## Introduction
 The **Certification Platform** is a Spring-based web application that enables users to take certification tests in various technology stacks. Users can input their personal details, select a stack, and take the quiz . Upon completion, the platform scores their responses and provides feedback.
 
+### Inspiration
+For this project i was inspired by the recently released project from the ALX team and Julian Barbier, The Vini Codi Vici, as it provides users with the concepts and tests
 ### Features
 - User registration
 - Technology stack selection for certifications
