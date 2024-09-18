@@ -2,7 +2,7 @@ package com.proj.certification.modules.students.controllers;
 
 import com.proj.certification.modules.questions.dto.StudentCertificationAnswersDTO;
 import com.proj.certification.modules.students.dto.VerifyHasCertificationDTO;
-import com.proj.certification.modules.students.repositories.CertificationStudentRepository;
+import com.proj.certification.modules.students.entities.CertificationStudentEntity;
 import com.proj.certification.modules.students.useCases.StudentCertificationAnswersUseCase;
 import com.proj.certification.modules.students.useCases.VerifyIfHasCertificationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class StudentController {
     }
 
     @PostMapping("/certification/answer")
-    public StudentCertificationAnswersDTO certificationAnswer(@RequestBody StudentCertificationAnswersDTO studentCertificationAnswersDTO) {
+    public CertificationStudentEntity certificationAnswer(@RequestBody StudentCertificationAnswersDTO studentCertificationAnswersDTO) {
         return studentCertificationAnswersUseCase.execute(studentCertificationAnswersDTO);
     }
 }
