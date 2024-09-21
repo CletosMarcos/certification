@@ -3,6 +3,7 @@ package com.proj.certification.modules.students.useCases;
 import com.proj.certification.modules.questions.dto.StudentCertificationAnswersDTO;
 import com.proj.certification.modules.questions.entities.QuestionEntity;
 import com.proj.certification.modules.questions.repositories.QuestionRepository;
+import com.proj.certification.modules.students.dto.VerifyHasCertificationDTO;
 import com.proj.certification.modules.students.entities.AnswersCertificationsEntity;
 import com.proj.certification.modules.students.entities.CertificationStudentEntity;
 import com.proj.certification.modules.students.entities.StudentEntity;
@@ -27,7 +28,16 @@ public class StudentCertificationAnswersUseCase {
     @Autowired
     private QuestionRepository questionRepository;
 
-    public CertificationStudentEntity execute(StudentCertificationAnswersDTO studentCertificationAnswersDTO) {
+    @Autowired
+    private VerifyIfHasCertificationUseCase verifyIfHasCertificationUseCase;
+
+    public CertificationStudentEntity execute(StudentCertificationAnswersDTO studentCertificationAnswersDTO) throws Exception {
+
+        var hasCertification = this.verifyIfHasCertificationUseCase.execute(new VerifyHasCertificationDTO(studentCertificationAnswersDTO.getEmail(), studentCertificationAnswersDTO.getTechnology()));
+
+        if (hasCertification) {
+            throw new Exception("Student already has Certification");
+        }
 
 //    Retrieve the alternatives for the questions
 //          - Correct or Incorrect
